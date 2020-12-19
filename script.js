@@ -19,6 +19,7 @@ function setName(x){
     input.focus()
     input.addEventListener("focusout", () => { confirmaNome(x)})
 }
+
 function confirmaNome(x){
     let novoNome = document.querySelector(`#inputNome${x}`).value
     if(x == "X"){
@@ -37,8 +38,8 @@ function confirmaNome(x){
 
     document.getElementById(`jogador${x}`).addEventListener("click", () => { setName(x) } )
 }
-/* Controle do jogo com teclado */
 
+/* Controle do jogo com teclado */
 function teclaPrecionada(event){
     switch (event.key){
         case 'Backspace':
@@ -188,10 +189,12 @@ function verificaGanhador(){
             } 
         }
     }
+
     if(jogadas == 9 && temVencedor == false){
         somarPontos('# Velha #')
     }
 }
+
 /* Mostrando onde ocorreu a vitoria */
 function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
     document.querySelector("#mostrandoVencedor").style.display = 'initial'
@@ -204,12 +207,15 @@ function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
     setTimeout(() => {
         document.querySelector(`#${posicao1}`).style.backgroundColor = "var(--corVencendo)"
     }, 300)
+
     setTimeout(() => {
         document.querySelector(`#${posicao2}`).style.backgroundColor = "var(--corVencendo)"
     }, 600)
+
     setTimeout(() => {
         document.querySelector(`#${posicao3}`).style.backgroundColor = "var(--corVencendo)"
     }, 900)
+    
     setTimeout(() => {
         let voceVenceu = document.querySelectorAll(".voceVenceu")
         for (i = 0; i < voceVenceu.length; i++) {
@@ -218,6 +224,7 @@ function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
         somarPontos(posicaoVencedora)
     }, 1200);
 }
+
 /* Soma somar pontos */
 var pontosJogadorX = 0
 var pontosJogadorO = 0
