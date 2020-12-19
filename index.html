@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da velha</title>
+    <link rel="shortcut icon" href="imagens/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onkeydown="teclaPrecionada(event)">
+    <div class="corpo">
+        <header>
+            <div class="titulo">
+                <h1>Jogo da velha!</h1>
+            </div>
+            <div id="telaCheia" class="telaCheia" ></div>
+            <div id="limparjogadas" class="limparJogadas" ></div>
+            <div class="vezDoJogador">
+                <h1 id="vezDoJogador">É a vez do X</h1>
+            </div>
+            <div id="formaJogadorX" class="formaJogadorX"></div>
+            <div id="divJogadorX" class="jogador">
+                <h2 id="jogadorX" class="nomeJogador">Jogador X</h2>
+            </div>
+            <div class="pontos" id="divPontosJogadorX"></div>
+        
+            <div id="vs" class="vs">
+            </div>
+        
+            <div id="divJogadorO" class="jogador">
+                <h2 id="jogadorO">Jogador O</h2>
+            </div>
+            <div class="pontos" id="divPontosJogadorO">
+            </div>
+            <div id="formaJogadorO" class="formaJogadorO"></div>
+
+        </header>
+        <section class="jogo">
+            <div id="A1" class="posicao"></div>
+            <div id="B1" class="posicao"></div>
+            <div id="C1" class="posicao"></div> 
+            <div id="A2" class="posicao"></div>
+            <div id="B2" class="posicao"></div>
+            <div id="C2" class="posicao"></div>
+            <div id="A3" class="posicao"></div>
+            <div id="B3" class="posicao"></div>
+            <div id="C3" class="posicao"></div>
+        </section>
+        <div id="mostrandoVencedor" class="mostrandoVencedor">
+            <h1 id="parabens" class="voceVenceu">Parabéns,</h1>
+            <p id="nomeVencedor" class="voceVenceu"></p>
+            <p class="voceVenceu">Você venceu esta rodada!!</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

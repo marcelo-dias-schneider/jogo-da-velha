@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Texturina:ital,wght@0,700;1,600&display=swap');
+
+:root{
+    --borderPosicao: none;
+    
+    --familiaDeFonte: 'Texturina', serif;
+
+    --corHeader: #001FEB;
+    --corFonteTitulo: #ffffff;
+    --corJogadores: #260BD4;
+    --corFonteJogador: #ffffff;
+    
+    --corFundoVazio: #6B0CF6;
+    --corVencendo: #7800ff;
+    --corBloqueiDeTela: #000000cc;
+    --boxShadowBody:   0 0 50px 5px #000000;
+    --boxShadowPosicao:   0 0 1px 1px #000000;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+body{
+    background-image: url(imagens/fundo.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.corpo{
+    max-width: 700px;
+    margin: auto;
+    box-shadow: var(--boxShadowBody);
+}
+header{
+    background-color: var(--corHeader);
+    font-family: var(--familiaDeFonte);
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 3fr 1fr;
+    grid-template-rows: 12vh 10vh 10vh;
+    grid-template-areas: 
+        "limpar  titulo titulo titulo titulo titulo telaCheia"
+        "forma1 jogadorX pontos1 vs pontos2 jogadorO forma2"
+        "vez vez vez vez vez vez vez";
+    text-align: center;
+}
+@media only screen and (max-width: 600px){
+    header{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 12vh 10vh 10vh 10vh;
+        grid-template-areas: 
+            "limpar titulo titulo titulo telaCheia"
+            "jogadorX jogadorX vs jogadorO jogadorO"
+            "forma1 pontos1 vs pontos2 forma2"
+            "vez vez vez vez vez";
+    }
+}
+
+.titulo{
+    padding: 10px;
+    grid-area: titulo;
+    line-height: 100%;
+    text-align: center;
+    color: var(--corFonteTitulo);
+}
+.telaCheia{
+    grid-area: telaCheia;
+    background-color: var(--corHeader);
+}
+.limparJogadas{
+    grid-area: limpar;
+    background-color: var(--corHeader);
+}
+.titulo h2{
+    vertical-align: center;
+}
+#formaJogadorX{
+    grid-area: forma1;
+    background-image: url(imagens/X.png);
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-color: var(--corJogadores);
+    
+}
+#formaJogadorO{
+    grid-area: forma2;
+    background-image: url(imagens/O.png);
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-color: var(--corJogadores);
+    
+}
+#vs{
+    grid-area: vs;
+    background-image: url(imagens/vs.png);
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+}
+
+/* Jogadores */
+.jogador{
+    padding: 10px;
+    background-color: var(--corJogadores);
+    color: var(--corFonteJogador);
+    font-size: 12pt;
+}
+.nomeJogador{
+    margin-top: 1vh;
+}
+#divJogadorX{
+    grid-area: jogadorX;
+    line-height: 100%;
+}
+#divJogadorO{
+    line-height: 100%;
+    grid-area: jogadorO;
+}
+#divPontosJogadorX{
+    grid-area: pontos1;
+}
+#divPontosJogadorO{
+    grid-area: pontos2;
+}
+.inputNome{
+    height: 100%;
+    font-family: var(--familiaDeFonte);
+    font-size: 15pt;
+    width: 100%;
+    text-align: center;
+    border: none;
+    background-color: var(--corJogadores);
+    color: var(--corFonteJogador);
+}
+.inputNome:focus{
+    border: none;
+}
+/*Pontos*/
+.pontos{
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-color: var(--corJogadores);
+}
+#divPontosJogadorX{
+    background-image: url(imagens/0pontos.png);
+}
+#divPontosJogadorO{
+    background-image: url(imagens/0pontos.png);
+}
+
+.vezDoJogador{
+    color: var(--corFonteTitulo);
+    grid-area: vez;
+}
+section{
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 22.6666667vh 22.6666667vh 22.6666667vh;
+    grid-template-areas: 
+    "A1 B1 C1"
+    "A2 B2 C2"
+    "A3 B3 C3";
+}
+@media only screen and (max-width: 600px){
+    section{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 19.33333334vh 19.33333334vh 19.33333334vh;
+        grid-template-areas: 
+        "A1 B1 C1"
+        "A2 B2 C2"
+        "A3 B3 C3";
+    }
+}
+.posicao{
+    box-shadow: var(--boxShadowPosicao);
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+    background-color: var(--corFundoVazio);
+}
+#A1{
+    grid-area: A1;
+    border-bottom: var(--border);
+    border-right: var(--border);
+    z-index: 1;
+}
+#B1{
+    grid-area: B1;
+    border-left: var(--border);
+    border-bottom: var(--border);
+    border-right: var(--border);
+    z-index: 1;
+}
+#C1{
+    grid-area: C1;
+    border-left: var(--border);
+    border-bottom: var(--border);
+    z-index: 1;
+    
+}
+#A2{
+    grid-area: A2;
+    border-top: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+    z-index: 1;
+}
+#B2{
+    grid-area: B2;
+    border-left: var(--border);
+    border-top: var(--border);
+    border-right: var(--border);
+    border-bottom: var(--border);
+    z-index: 1;
+}
+#C2{
+    grid-area: C2;
+    border-left: var(--border);
+    border-top: var(--border);
+    border-bottom: var(--border);
+    z-index: 1;
+}
+#A3{
+    grid-area: A3;
+    border-top: var(--border);
+    border-right: var(--border);
+    z-index: 1;
+}
+#B3{
+    grid-area: B3;
+    border-left: var(--border);
+    border-top: var(--border);
+    border-right: var(--border);
+    z-index: 1;
+}
+#C3{
+    grid-area: C3;
+    border-left: var(--border);
+    border-top: var(--border);
+    z-index: 1;
+}
+.mostrandoVencedor{
+    max-width: 700px;
+    background-color: var(--corBloqueiDeTela);
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    margin-top: -100vh;
+    margin-left: 0;
+    display: none;
+    z-index: 2;
+}
+#parabens{
+    margin-top: 40vh;
+}
+.voceVenceu{
+    text-align: center;
+    vertical-align: center;
+    font-size: 50pt;
+    color: var(--corVencendo);
+    font-size: 40pt;
+}
