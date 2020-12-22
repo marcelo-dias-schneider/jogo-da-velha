@@ -255,6 +255,7 @@ function somarPontos(x){
 }
 
 /* Limpar jogadas */
+document.querySelector("#limparjogadas").addEventListener("click", () => {limparJogadas()})
 function limparJogadas(x){
     document.querySelector("#A1").style.backgroundImage = "none"
     document.querySelector("#A1").style.backgroundColor = "var(--corFundoVazio)"
@@ -298,7 +299,7 @@ function mostrandoVencedor(x){
             nome = document.querySelector(`#jogador${x}`).textContent
             document.querySelector("#mostrandoVencedor").style.backgroundColor = 'var(--corBloqueiDeTela)'
         }
-        document.querySelector(`#nomeVencedor`).innerHTML = nome 
+        document.querySelector(`#nomeVencedor`).innerHTML = 'Vitória de ' + nome 
 
         document.querySelector("#mostrandoVencedor").style.display = 'initial'
         setTimeout(() => {
@@ -313,11 +314,12 @@ function mostrandoVencedor(x){
 }
 
 /* Ativando a função de tela cheia */
-document.querySelector('#telaCheia').addEventListener("click",() => { isFull() })
+document.querySelector('#telaCheia').addEventListener("click",() => { estaEmTelaCheia() })
 let body = document.querySelector("body")
 let modoTelaCheia = false
 
-function isFull() {
+/* verifica se esta em tela cheia */
+function estaEmTelaCheia() {
     modoTelaCheia = document.fullScreen || document.msFullScreen ||document.mozFullScreen || document.webkitIsFullScreen
     telacheia()
 }
@@ -331,6 +333,7 @@ function telacheia() {
         } else if (body.msRequestFullscreen) { /* IE11 */
           body.msRequestFullscreen();
         }
+        document.querySelector("#telaCheia").style.backgroundImage = "url('imagens/telaCheiaSair.png')"
         modoTelaCheia = true
     } else if(modoTelaCheia == true){
         if (document.exitFullscreen) {
@@ -340,6 +343,7 @@ function telacheia() {
         } else if (document.msExitFullscreen) { /* IE11 */
             document.msExitFullscreen();
         }
+        document.querySelector("#telaCheia").style.backgroundImage = "url('imagens/telaCheiaEntrar.png')"
         modoTelaCheia = false
     }
 }
