@@ -245,17 +245,41 @@ function somarPontos(x){
             
             document.querySelector(`#divPontosJogador${x}`).style.backgroundImage = `url('imagens/${pontosAtuais}pontos.png')`
             
+            /* Verificando se o jogo acabou */
             if (pontosAtuais == 5){
-                let nome = document.querySelector(`#jogador${x}`).textContent
-                alert(`${nome} venceu a partida!!`)
+                let divMostrandoVencedor = document.querySelector("#mostrandoVencedor")
+                let intervalo = 250
+                let voltas = 25
+                document.querySelector("#mostrandoVencedor").style.backgroundColor = 'var(--corBloqueiDeTela)'
+                for (let index = 0; index < voltas; index++) {
+                    let lado
+                    if((index % 2 ) > 0){
+                        lado = 'D'
+                    } else {
+                        lado = 'E'
+                    }
+                    let tempo = index * intervalo
+                    setTimeout(() => {
+                        divMostrandoVencedor.style.backgroundImage = `url('imagens/vitoria${lado}.png')`
+                    }, tempo)
+                }
+                pontosJogadorX = 0
+                pontosJogadorO = 0
+                document.querySelector("#divPontosJogadorX").style.backgroundImage = "url('imagens/0pontos.png')"
+                document.querySelector("#divPontosJogadorO").style.backgroundImage = "url('imagens/0pontos.png')"
+                setTimeout(() => {
+                    limparJogadas(x)
+                    divMostrandoVencedor.style.backgroundImage = 'none'
+                }, voltas*intervalo);
+            } else {
+                limparJogadas(x)
             }
-            limparJogadas(x)
         }
     }
 }
 
 /* Limpar jogadas */
-document.querySelector("#limparjogadas").addEventListener("click", () => {limparJogadas()})
+document.querySelector("#limparjogadas").addEventListener("click", () => { limparJogadas('Limpar')} )
 function limparJogadas(x){
     document.querySelector("#A1").style.backgroundImage = "none"
     document.querySelector("#A1").style.backgroundColor = "var(--corFundoVazio)"
@@ -306,10 +330,6 @@ function mostrandoVencedor(x){
         document.querySelector("#mostrandoVencedor").style.display = 'none'
         document.querySelector(`#nomeVencedor`).innerHTML = ""     
         }, 1500);
-        if(pontosJogadorO == 5 || pontosJogadorX == 5){
-            document.querySelector("#divPontosJogadorX").style.backgroundImage = "url('imagens/0pontos.png')"
-            document.querySelector("#divPontosJogadorO  ").style.backgroundImage = "url('imagens/0pontos.png')"
-        }
     }      
 }
 

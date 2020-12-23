@@ -73,11 +73,9 @@ header{
 .limparJogadas{
     grid-area: limpar;
     background-color: var(--corHeader);
-    background-image: url(imagens/limpar.png);
+    background-image: url(imagens/vasoura.png);
     background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    
+    background-repeat: no-repeat;    
 }
 .titulo h2{
     vertical-align: center;
@@ -254,18 +252,25 @@ section{
 .mostrandoVencedor{
     max-width: 700px;
     background-color: var(--corBloqueiDeTela);
+    background-position: center center;
+    background-repeat: no-repeat;
     position: absolute;
     height: 100vh;
     width: 100%;
     margin-top: -100vh;
     margin-left: 0;
-    display: none;
+    display: initial;
     z-index: 2;
 }
 .voceVenceu{
     line-height: 100vh;
     text-align: center;
     vertical-align: center;
-    font-size: 50pt;
+    font-size: 30pt;
     color: var(--corVencendo);
+}
+@media only screen and (max-width: 600px){
+    .voceVenceu{
+        font-size: 20pt;
+    }
 }
