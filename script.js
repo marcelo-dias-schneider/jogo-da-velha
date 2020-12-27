@@ -39,6 +39,56 @@ function confirmaNome(x){
     document.getElementById(`jogador${x}`).addEventListener("click", () => { setName(x) } )
 }
 
+/* Ativando a função de tela cheia */
+document.querySelector('#telaCheia').addEventListener("click",() => { estaEmTelaCheia() })
+let body = document.querySelector("body")
+let modoTelaCheia = false
+
+/* verifica se esta em tela cheia */
+function estaEmTelaCheia() {
+    modoTelaCheia = document.fullScreen || document.msFullScreen ||document.mozFullScreen || document.webkitIsFullScreen
+    telacheia()
+}
+
+function telacheia() {
+    if(modoTelaCheia == false ){
+        if (body.requestFullscreen) {
+          body.requestFullscreen();
+        } else if (body.webkitRequestFullscreen) { /* Safari */
+          body.webkitRequestFullscreen();
+        } else if (body.msRequestFullscreen) { /* IE11 */
+          body.msRequestFullscreen();
+        }
+        document.querySelector("#telaCheia").style.backgroundImage = "url('imagens/telaCheiaSair.png')"
+        modoTelaCheia = true
+    } else if(modoTelaCheia == true){
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+        document.querySelector("#telaCheia").style.backgroundImage = "url('imagens/telaCheiaEntrar.png')"
+        modoTelaCheia = false
+    }
+}
+
+/* Memoria de cada jogada */
+let jogadas = 0
+let temVencedor = false
+let jogadorDaVez = "X"
+let A1 = null
+let B1 = null
+let C1 = null
+let A2 = null
+let B2 = null
+let C2 = null
+let A3 = null
+let B3 = null
+let C3 = null
+let podeJogar = true
+
 /* Controle do jogo com teclado */
 function teclaPrecionada(event){
     switch (event.key){
@@ -75,11 +125,10 @@ function teclaPrecionada(event){
         case 'Escape':
         alert("esc pressed")
         break
-
     }
 }
 
-/** Marcar jogadas */
+/* Inicia a jogada atravez do click */
 document.querySelector('#A1').addEventListener("click", () => { marcarJogada("A1")})
 document.querySelector('#B1').addEventListener("click", () => { marcarJogada("B1")})
 document.querySelector('#C1').addEventListener("click", () => { marcarJogada("C1")})
@@ -90,21 +139,11 @@ document.querySelector('#A3').addEventListener("click", () => { marcarJogada("A3
 document.querySelector('#B3').addEventListener("click", () => { marcarJogada("B3")})
 document.querySelector('#C3').addEventListener("click", () => { marcarJogada("C3")})
 
-let jogadas = 0
-let temVencedor = false
-let jogadorDaVez = "X"
-let A1 = null
-let B1 = null
-let C1 = null
-let A2 = null
-let B2 = null
-let C2 = null
-let A3 = null
-let B3 = null
-let C3 = null
-
+/* Marcar jogadas */
 function marcarJogada(posicao){
-    if( eval(posicao) == null){
+    if( eval(posicao) == null && podeJogar == true){
+        podeJogar = false
+
         let background = document.querySelector(`#${posicao}`)
         let vezDoJogador = document.querySelector("#vezDoJogador")
         background.removeAttribute("style")
@@ -187,22 +226,25 @@ function verificaGanhador(){
                     mostrandoVitoria('C1','C2','C3',C1)
                     break
             } 
-        }
+        } 
     }
-
-    if(jogadas == 9 && temVencedor == false){
+    /* Finaliza o jogo com velha em 9 rodadas se ou hover vencedor */
+    if(jogadas == 9 && !temVencedor){
         somarPontos('# Velha #')
+    } else if(!temVencedor){
+        podeJogar = true
     }
 }
 
 /* Mostrando onde ocorreu a vitoria */
 function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
+    /*
     document.querySelector("#mostrandoVencedor").style.display = 'initial'
     document.querySelector("#mostrandoVencedor").style.backgroundColor = 'rgba(0, 0, 0, 0)'
     let voceVenceu = document.querySelectorAll(".voceVenceu")
     for (i = 0; i < voceVenceu.length; i++) {
         voceVenceu[i].style.color = 'rgba(0, 0, 0, 0)'
-    }
+    }*/
 
     setTimeout(() => {
         document.querySelector(`#${posicao1}`).style.backgroundColor = "var(--corVencendo)"
@@ -217,10 +259,11 @@ function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
     }, 900)
     
     setTimeout(() => {
+        /*
         let voceVenceu = document.querySelectorAll(".voceVenceu")
         for (i = 0; i < voceVenceu.length; i++) {
             voceVenceu[i].style.color = 'var(--corVencendo)'
-        }
+        }*/
         somarPontos(posicaoVencedora)
     }, 1200);
 }
@@ -248,9 +291,10 @@ function somarPontos(x){
             /* Verificando se o jogo acabou */
             if (pontosAtuais == 5){
                 let divMostrandoVencedor = document.querySelector("#mostrandoVencedor")
+                divMostrandoVencedor.style.display = 'initial'
+                //document.querySelector("#mostrandoVencedor").style.backgroundColor = 'var(--corBloqueiDeTela)'
                 let intervalo = 250
                 let voltas = 25
-                document.querySelector("#mostrandoVencedor").style.backgroundColor = 'var(--corBloqueiDeTela)'
                 for (let index = 0; index < voltas; index++) {
                     let lado
                     if((index % 2 ) > 0){
@@ -309,7 +353,7 @@ function limparJogadas(x){
     B3 = null
     C3 = null
     jogadas = 0
-    temVencedor = 0
+    temVencedor = false
     mostrandoVencedor(x)
 }
 
@@ -328,42 +372,9 @@ function mostrandoVencedor(x){
         document.querySelector("#mostrandoVencedor").style.display = 'initial'
         setTimeout(() => {
         document.querySelector("#mostrandoVencedor").style.display = 'none'
-        document.querySelector(`#nomeVencedor`).innerHTML = ""     
+        document.querySelector(`#nomeVencedor`).innerHTML = ""
+        podeJogar = true
         }, 1500);
     }      
 }
 
-/* Ativando a função de tela cheia */
-document.querySelector('#telaCheia').addEventListener("click",() => { estaEmTelaCheia() })
-let body = document.querySelector("body")
-let modoTelaCheia = false
-
-/* verifica se esta em tela cheia */
-function estaEmTelaCheia() {
-    modoTelaCheia = document.fullScreen || document.msFullScreen ||document.mozFullScreen || document.webkitIsFullScreen
-    telacheia()
-}
-
-function telacheia() {
-    if(modoTelaCheia == false ){
-        if (body.requestFullscreen) {
-          body.requestFullscreen();
-        } else if (body.webkitRequestFullscreen) { /* Safari */
-          body.webkitRequestFullscreen();
-        } else if (body.msRequestFullscreen) { /* IE11 */
-          body.msRequestFullscreen();
-        }
-        document.querySelector("#telaCheia").style.backgroundImage = "url('imagens/telaCheiaSair.png')"
-        modoTelaCheia = true
-    } else if(modoTelaCheia == true){
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) { /* Safari */
-            document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) { /* IE11 */
-            document.msExitFullscreen();
-        }
-        document.querySelector("#telaCheia").style.backgroundImage = "url('imagens/telaCheiaEntrar.png')"
-        modoTelaCheia = false
-    }
-}
