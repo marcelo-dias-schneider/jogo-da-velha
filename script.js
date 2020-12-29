@@ -191,7 +191,7 @@ function verificaGanhador(){
     
     possibilidades.forEach( verificando )
     function verificando(item, index){
-        if(item == true){
+        if(item == true && temVencedor == false){
             switch (index){
                 case 0:
                     temVencedor = true
@@ -238,14 +238,6 @@ function verificaGanhador(){
 
 /* Mostrando onde ocorreu a vitoria */
 function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
-    /*
-    document.querySelector("#mostrandoVencedor").style.display = 'initial'
-    document.querySelector("#mostrandoVencedor").style.backgroundColor = 'rgba(0, 0, 0, 0)'
-    let voceVenceu = document.querySelectorAll(".voceVenceu")
-    for (i = 0; i < voceVenceu.length; i++) {
-        voceVenceu[i].style.color = 'rgba(0, 0, 0, 0)'
-    }*/
-
     setTimeout(() => {
         document.querySelector(`#${posicao1}`).style.backgroundColor = "var(--corVencendo)"
     }, 300)
@@ -259,11 +251,6 @@ function mostrandoVitoria(posicao1,posicao2,posicao3,posicaoVencedora){
     }, 900)
     
     setTimeout(() => {
-        /*
-        let voceVenceu = document.querySelectorAll(".voceVenceu")
-        for (i = 0; i < voceVenceu.length; i++) {
-            voceVenceu[i].style.color = 'var(--corVencendo)'
-        }*/
         somarPontos(posicaoVencedora)
     }, 1200);
 }
@@ -292,7 +279,6 @@ function somarPontos(x){
             if (pontosAtuais == 5){
                 let divMostrandoVencedor = document.querySelector("#mostrandoVencedor")
                 divMostrandoVencedor.style.display = 'initial'
-                //document.querySelector("#mostrandoVencedor").style.backgroundColor = 'var(--corBloqueiDeTela)'
                 let intervalo = 250
                 let voltas = 25
                 for (let index = 0; index < voltas; index++) {
@@ -325,24 +311,12 @@ function somarPontos(x){
 /* Limpar jogadas */
 document.querySelector("#limparjogadas").addEventListener("click", () => { limparJogadas('Limpar')} )
 function limparJogadas(x){
-    document.querySelector("#A1").style.backgroundImage = "none"
-    document.querySelector("#A1").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#B1").style.backgroundImage = "none"
-    document.querySelector("#B1").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#C1").style.backgroundImage = "none"
-    document.querySelector("#C1").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#A2").style.backgroundImage = "none"
-    document.querySelector("#A2").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#B2").style.backgroundImage = "none"
-    document.querySelector("#B2").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#C2").style.backgroundImage = "none"
-    document.querySelector("#C2").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#A3").style.backgroundImage = "none"
-    document.querySelector("#A3").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#B3").style.backgroundImage = "none"
-    document.querySelector("#B3").style.backgroundColor = "var(--corFundoVazio)"
-    document.querySelector("#C3").style.backgroundImage = "none"
-    document.querySelector("#C3").style.backgroundColor = "var(--corFundoVazio)"
+    let posicoes = document.querySelectorAll('.posicao')
+    posicoes.forEach(element => {
+        element.style.backgroundImage = "none"
+        element.style.backgroundColor = "var(--corFundoVazio)"
+    });
+
     A1 = null
     B1 = null
     C1 = null
