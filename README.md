@@ -1,4 +1,4 @@
-# Tic-Tac-Toe [Play it now!!!](https://marcelo-dias-schneider.github.io/jogo-da-velha/)
+# Tic-Tac-Toe 
 
 > A simple tic-tac-toe game made with pure JavaScript Vanilla, HTML, and CSS.
 
@@ -29,6 +29,11 @@ This project was developed right after I learned JavaScript, as a way to practic
 - `imagens/` — Images used in the interface
 
 Feel free to use, modify, and share!
+
+---
+
+[Play it now!!!](https://marcelo-dias-schneider.github.io/jogo-da-velha/)
+
 
 ---
 
